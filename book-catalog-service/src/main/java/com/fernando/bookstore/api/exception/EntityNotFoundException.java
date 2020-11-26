@@ -1,4 +1,4 @@
-package com.fernando.bookstore.exception;
+package com.fernando.bookstore.api.exception;
 
 public class EntityNotFoundException  extends RuntimeException {
     

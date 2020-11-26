@@ -17,6 +17,11 @@
 		"gabrielbb.vscode-lombok",
 		"vscjava.vscode-java-debug",
 		"ms-azuretools.vscode-docker",
+		"eamodio.gitlens",
+		"vscjava.vscode-java-pack",
+		"vscjava.vscode-java-test",
+		"vscjava.vscode-maven",
+		"visualstudioexptteam.vscodeintellicode",
 		"eamodio.gitlens"
 	],
 

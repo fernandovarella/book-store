@@ -5,31 +5,27 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
-@SuperBuilder
-@AllArgsConstructor
 @NoArgsConstructor
-public abstract class DefaultEntity implements Serializable {
+@AllArgsConstructor
+@Data
+@Builder
+// @Document(value = "stock")
+// public class Stock extends DefaultEntity {
+public class Stock implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private String id;
+    // @DBRef(lazy = true)
+    // private Book book;
 
-    @JsonIgnore
-    @CreatedDate
-    private Date createdAt;
+    private Long quantity;
 
     @JsonIgnore
     @LastModifiedDate

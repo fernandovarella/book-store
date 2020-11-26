@@ -15,6 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RepositoryUtil {
 
+    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_PAGE_SIZE = 2;
+    public static final String[] DEFAULT_SORT = new String[]{"id,asc"};
+
+
     private static final Map<String, Direction> directionMap = new HashMap<>();
     static {
         directionMap.put("asc", Direction.ASC);

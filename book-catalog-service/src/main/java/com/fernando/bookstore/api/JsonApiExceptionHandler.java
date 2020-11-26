@@ -6,7 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fernando.bookstore.exception.EntityNotFoundException;
+import com.fernando.bookstore.api.exception.EntityNotFoundException;
+import com.fernando.bookstore.api.model.ApiError;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Value;
@@ -89,6 +90,7 @@ public class JsonApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         if (isDev()) {
             errorBuilder.trace(getStackTrace(exception));
+            exception.printStackTrace();
         }
 
         final Map<String, Object> body = new LinkedHashMap<>();

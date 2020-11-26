@@ -1,4 +1,4 @@
-package com.fernando.bookstore.api;
+package com.fernando.bookstore.api.model;
 
 import java.util.List;
 

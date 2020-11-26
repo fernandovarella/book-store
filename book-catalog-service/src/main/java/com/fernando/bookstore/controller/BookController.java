@@ -2,11 +2,16 @@ package com.fernando.bookstore.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.List;
+
+import com.fernando.bookstore.data.dto.CountBooksPerAuthorDTO;
 import com.fernando.bookstore.data.model.Book;
+import com.fernando.bookstore.repository.BookRepository;
 import com.fernando.bookstore.service.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +29,9 @@ public class BookController {
 
 	@Autowired
 	private BookService bookService;
+
+	@Autowired
+	private BookRepository bookRepository;
 	
 
 	@GetMapping(path = "/{bookId}")
@@ -32,18 +40,30 @@ public class BookController {
 	}
 
 	@GetMapping(path = "")
-	public ResponseEntity<Page<Book>> getBooks(@RequestParam(defaultValue = "0", required = false) Integer page, 
-							@RequestParam(defaultValue = "10", required = false) Integer size,
-							@RequestParam(defaultValue = "id,asc", required = false) String[] sort
+	// public ResponseEntity<Page<Book>> getBooks(@RequestParam(defaultValue = "0", required = false) Integer page, 
+	// 						@RequestParam(defaultValue = "10", required = false) Integer size,
+	// 						@RequestParam(defaultValue = "id,asc", required = false) String[] sort
+	// 						) {
+	public ResponseEntity<Page<Book>> getBooks(Pageable pageable
 							) {
 		// return ResponseEntity.ok(bookRepository.findAll(ControlllerUtil.buildPageableFromRequest(page, size, sort)));
-		return ResponseEntity.ok(bookService.getAll(page, size, sort));
+		return ResponseEntity.ok(bookService.getAll(pageable));
 	}
 	
 
     @PostMapping(path = "")
 	public ResponseEntity<Book> create(@RequestBody Book book) {
 		return ResponseEntity.ok(bookService.create(book));
+	}
+
+	
+	@GetMapping(path = "/test")
+	public ResponseEntity<List<CountBooksPerAuthorDTO>> test(@RequestParam(defaultValue = "0.0") Double minAvgCost) {
+		// List<Book> ret = bookRepository.getTitleAndRating();
+		// List<CountBooksPerAuthorDTO> ret = bookRepository.countBooksByAuthorWithAverageRatingGtThan(4.7);
+
+		// return ResponseEntity.ok(ret);
+		return ResponseEntity.ok(bookRepository.countBooksByAuthorWithAverageRatingGtThan(minAvgCost)); 
 	}
 	
 

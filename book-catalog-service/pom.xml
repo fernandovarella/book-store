@@ -51,6 +51,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 		
 		<!-- Rest Assured Dependencies-->
         <dependency>
@@ -82,5 +83,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>
