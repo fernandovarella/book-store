@@ -5,11 +5,12 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.List;
 
-import com.fernando.bookstore.api.JsonApiExceptionHandler;
-import com.fernando.bookstore.api.exception.EntityNotFoundException;
 import com.fernando.bookstore.data.model.Book;
 import com.fernando.bookstore.service.BookService;
+import com.fernando.services.commons.api.exception.EntityNotFoundException;
+import com.fernando.services.commons.api.exception.JsonApiExceptionHandler;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,17 +45,20 @@ public class BookControllerTest {
 
     static Page<Book> findAllResult;
 
+    static List<Book> findAllResultRaw;
+
     @BeforeAll
     public static void setupAll() {
         System.setProperty("spring.profiles.active", "dev");
 
 
-        findAllResult = new PageImpl<Book>(Arrays.asList(
-                    // Book.builder().id("book1").title("Book One").authors(Arrays.asList("Author One")).build(),
-                    // Book.builder().id("book2").title("Book Two").authors(Arrays.asList("Author One")).build(),
-                    // Book.builder().id("book3").title("Book Three").authors(Arrays.asList("Author Two")).build()
-                ));
+        findAllResultRaw = Arrays.asList(
+            // Book.builder().id("book1").title("Book One").authors(Arrays.asList("Author One")).build(),
+            // Book.builder().id("book2").title("Book Two").authors(Arrays.asList("Author One")).build(),
+            // Book.builder().id("book3").title("Book Three").authors(Arrays.asList("Author Two")).build()
+        );
 
+        findAllResult = new PageImpl<Book>(findAllResultRaw);
     }
 
     @BeforeEach
@@ -63,7 +67,7 @@ public class BookControllerTest {
         ReflectionTestUtils.setField(jsonApiExceptionHandler, "activeProfile", "dev");
 
         //
-        when(bookService.getAll()).thenReturn(findAllResult);
+        when(bookService.list()).thenReturn(findAllResultRaw);
     }
 
     @Test

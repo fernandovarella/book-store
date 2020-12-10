@@ -6,8 +6,6 @@ import java.util.List;
 import com.fernando.bookstore.data.dto.CountBooksPerAuthorDTO;
 import com.fernando.bookstore.data.model.Book;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

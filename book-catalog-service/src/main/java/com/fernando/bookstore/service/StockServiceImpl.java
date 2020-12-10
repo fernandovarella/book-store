@@ -2,7 +2,6 @@ package com.fernando.bookstore.service;
 
 import java.util.List;
 
-import com.fernando.bookstore.api.exception.EntityNotFoundException;
 import com.fernando.bookstore.data.dto.StockDTO;
 import com.fernando.bookstore.data.dto.StockInDTO;
 import com.fernando.bookstore.data.model.Book;
@@ -12,6 +11,7 @@ import com.fernando.bookstore.data.model.StockOut;
 import com.fernando.bookstore.repository.StockInRepository;
 import com.fernando.bookstore.repository.StockOutRepository;
 import com.fernando.bookstore.repository.StockRepository;
+import com.fernando.services.commons.api.exception.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

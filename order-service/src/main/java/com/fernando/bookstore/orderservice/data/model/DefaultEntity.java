@@ -1,6 +1,5 @@
-package com.fernando.bookstore.data.model;
+package com.fernando.bookstore.orderservice.data.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +20,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class DefaultEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public abstract class DefaultEntity  {
 
     @Id
     private String id;
@@ -34,5 +32,8 @@ public abstract class DefaultEntity implements Serializable {
     @JsonIgnore
     @LastModifiedDate
     private Date updatedAt;
+
+    @Version
+    private Long version;
 
 }
