@@ -6,16 +6,17 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fernando.services.commons.api.model.DefaultEntity;
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,13 +24,17 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Document(value = "books")
 @JsonInclude(Include.NON_ABSENT)
-public class Book extends DefaultEntity {
+public class Book extends DefaultEntity<String> {
     
     private static final long serialVersionUID = 7596222660798490812L;
 
     private String isbn;
 
     private String title;
+
+    @Id
+    @Field("id")
+    private String id; 
 
     @Field("original_title")
     private String originalTitle;

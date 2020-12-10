@@ -47,7 +47,7 @@ public class BookController {
 	public ResponseEntity<Page<Book>> getBooks(Pageable pageable
 							) {
 		// return ResponseEntity.ok(bookRepository.findAll(ControlllerUtil.buildPageableFromRequest(page, size, sort)));
-		return ResponseEntity.ok(bookService.getAll(pageable));
+		return ResponseEntity.ok(bookService.list(pageable));
 	}
 	
 
