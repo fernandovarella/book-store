@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fernando.services.commons.api.model.DefaultEntity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +26,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Document(value = "orders")
 @JsonInclude(Include.NON_ABSENT)
-public class Order extends DefaultEntity implements Serializable  {
+public class Order extends DefaultEntity<String> implements Serializable  {
     
     private static final long serialVersionUID = -549855829265972445L;
+    
+    @Id
+    private String id;
 
     @Builder.Default
     private OrderStatusEnum status = OrderStatusEnum.CREATED;

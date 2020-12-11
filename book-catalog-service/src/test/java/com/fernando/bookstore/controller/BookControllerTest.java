@@ -67,7 +67,7 @@ public class BookControllerTest {
         ReflectionTestUtils.setField(jsonApiExceptionHandler, "activeProfile", "dev");
 
         //
-        when(bookService.list()).thenReturn(findAllResultRaw);
+        when(bookService.listAll()).thenReturn(findAllResultRaw);
     }
 
     @Test

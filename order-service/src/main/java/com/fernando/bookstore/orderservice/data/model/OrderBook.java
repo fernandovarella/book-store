@@ -26,5 +26,6 @@ public class OrderBook implements Serializable {
 
     private BigDecimal listPrice;
 
+    private String title;
     
 }

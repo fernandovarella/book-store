@@ -2,6 +2,7 @@ package com.fernando.bookstore.orderservice.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import com.fernando.bookstore.orderservice.data.dto.ConfirmOrderPaymentDTO;
 import com.fernando.bookstore.orderservice.data.dto.CreateOrderDTO;
@@ -9,10 +10,11 @@ import com.fernando.bookstore.orderservice.data.model.Order;
 import com.fernando.bookstore.orderservice.data.model.OrderStatusEnum;
 import com.fernando.bookstore.orderservice.repository.OrderRepository;
 import com.fernando.services.commons.api.exception.EntityNotFoundException;
+import com.fernando.services.commons.api.service.DefaultServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends DefaultServiceImpl<Order,String> implements OrderService {
 
     @Autowired
     private OrderRepository repository;
@@ -38,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     public Order confirmOrderPayment(ConfirmOrderPaymentDTO confirmPaymentDTO) {
         Order order = repository.findById(confirmPaymentDTO.getOrderId()).orElseThrow(EntityNotFoundException::new);
         order.setStatus(OrderStatusEnum.PAYMENT_CONFIRMED);
-        order.setPaymentDate(LocalDate..getPaymentDate());
+        order.setPaymentDate(confirmPaymentDTO.getPaymentDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         order = repository.save(order);
         return order;
     }
