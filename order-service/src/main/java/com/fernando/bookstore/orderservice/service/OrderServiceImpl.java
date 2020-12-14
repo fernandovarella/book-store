@@ -1,13 +1,14 @@
 package com.fernando.bookstore.orderservice.service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.ZoneId;
 
 import javax.annotation.PostConstruct;
 
+import com.fernando.bookstore.orderservice.api.BusinessException;
 import com.fernando.bookstore.orderservice.data.dto.ConfirmOrderPaymentDTO;
 import com.fernando.bookstore.orderservice.data.dto.CreateOrderDTO;
+import com.fernando.bookstore.orderservice.data.dto.OrderDeliveredDTO;
 import com.fernando.bookstore.orderservice.data.model.Order;
 import com.fernando.bookstore.orderservice.data.model.OrderStatusEnum;
 import com.fernando.bookstore.orderservice.repository.OrderRepository;
@@ -52,6 +53,18 @@ public class OrderServiceImpl extends DefaultServiceImpl<Order,String> implement
         Order order = repository.findById(confirmPaymentDTO.getOrderId()).orElseThrow(EntityNotFoundException::new);
         order.setStatus(OrderStatusEnum.PAYMENT_CONFIRMED);
         order.setPaymentDate(confirmPaymentDTO.getPaymentDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        order = repository.save(order);
+        return order;
+    }
+
+    @Override
+    public Order confirmOrderDelivery(OrderDeliveredDTO orderDeliveredDTO) {
+        Order order = repository.findById(orderDeliveredDTO.getOrderId()).orElseThrow(EntityNotFoundException::new);
+        if (!OrderStatusEnum.CREATED.equals(order.getStatus())) {
+            throw new BusinessException("Order must be on status CREATED in order to have it's delivery confirmed.");
+        }
+        order.setStatus(OrderStatusEnum.DELIVERED);
+        order.setDeliveryDateTime(orderDeliveredDTO.getDeliveryDateTime());
         order = repository.save(order);
         return order;
     }

@@ -2,6 +2,7 @@ package com.fernando.bookstore.orderservice.data.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -41,7 +42,7 @@ public class Order extends DefaultEntity<String>  {
     private LocalDate orderDate;
     private LocalDate paymentDate;
     private LocalDate shippingDate;
-    private LocalDate deliveryDate;
+    private LocalDateTime deliveryDateTime;
 
     private List<OrderBook> books;
 

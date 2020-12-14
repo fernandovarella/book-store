@@ -3,6 +3,7 @@ package com.fernando.bookstore.orderservice.controller;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import com.fernando.bookstore.orderservice.data.dto.CreateOrderDTO;
+import com.fernando.bookstore.orderservice.data.dto.OrderDeliveredDTO;
 import com.fernando.bookstore.orderservice.data.model.Order;
 import com.fernando.bookstore.orderservice.service.OrderService;
 
@@ -38,6 +39,13 @@ public class OrderController {
     @PostMapping(path = "")
 	public ResponseEntity<Order> create(@RequestBody CreateOrderDTO createOrderDTO) {
 		return ResponseEntity.ok(orderService.createOrder(createOrderDTO));
+	}
+
+	
+    @PostMapping(path = "/{orderId}/delivery")
+	public ResponseEntity<Order> confirmDelivery(@PathVariable(value = "orderId") String orderId, @RequestBody OrderDeliveredDTO createOrderDTO) {
+		createOrderDTO.setOrderId(orderId);
+		return ResponseEntity.ok(orderService.confirmOrderDelivery(createOrderDTO));
 	}
 
 	
