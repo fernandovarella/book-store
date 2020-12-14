@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+import javax.annotation.PostConstruct;
+
 import com.fernando.bookstore.orderservice.data.dto.ConfirmOrderPaymentDTO;
 import com.fernando.bookstore.orderservice.data.dto.CreateOrderDTO;
 import com.fernando.bookstore.orderservice.data.model.Order;
@@ -13,11 +15,19 @@ import com.fernando.services.commons.api.exception.EntityNotFoundException;
 import com.fernando.services.commons.api.service.DefaultServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderServiceImpl extends DefaultServiceImpl<Order,String> implements OrderService {
 
     @Autowired
     private OrderRepository repository;
+
+    @Override
+    @PostConstruct
+    public void initRepository() {
+        super.setRepository(repository);
+    }
 
     @Override
     public Order createOrder(CreateOrderDTO createOrderDTO) {
@@ -27,7 +37,8 @@ public class OrderServiceImpl extends DefaultServiceImpl<Order,String> implement
         Order order = Order.builder()
             .books(createOrderDTO.getBooks())
             .status(OrderStatusEnum.CREATED)
-            .orderDate(LocalDate.now())
+            // .orderDate(createOrderDTO.getCreatedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+            .orderDate(createOrderDTO.getCreatedDate())
             .totalPrice(totalPrice)
             .build();
 

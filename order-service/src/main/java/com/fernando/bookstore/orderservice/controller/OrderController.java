@@ -32,9 +32,8 @@ public class OrderController {
 
 	@GetMapping(path = "")
 	public ResponseEntity<Page<Order>> getOrders(Pageable pageable) {
-		return ResponseEntity.ok(orderService.list(pageable));
+		return ResponseEntity.ok(orderService.listAll(pageable));
 	}
-	
 
     @PostMapping(path = "")
 	public ResponseEntity<Order> create(@RequestBody CreateOrderDTO createOrderDTO) {

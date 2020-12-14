@@ -1,6 +1,5 @@
 package com.fernando.bookstore.orderservice.data.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,7 +25,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Document(value = "orders")
 @JsonInclude(Include.NON_ABSENT)
-public class Order extends DefaultEntity<String> implements Serializable  {
+public class Order extends DefaultEntity<String>  {
     
     private static final long serialVersionUID = -549855829265972445L;
     
