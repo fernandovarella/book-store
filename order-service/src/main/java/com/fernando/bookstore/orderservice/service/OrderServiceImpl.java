@@ -11,6 +11,8 @@ import com.fernando.bookstore.orderservice.data.dto.CreateOrderDTO;
 import com.fernando.bookstore.orderservice.data.dto.OrderDeliveredDTO;
 import com.fernando.bookstore.orderservice.data.model.Order;
 import com.fernando.bookstore.orderservice.data.model.OrderStatusEnum;
+import com.fernando.bookstore.orderservice.messaging.OrdersMessagesSender;
+import com.fernando.bookstore.orderservice.messaging.dto.OrderConfirmedMsg;
 import com.fernando.bookstore.orderservice.repository.OrderRepository;
 import com.fernando.services.commons.api.exception.EntityNotFoundException;
 import com.fernando.services.commons.api.service.DefaultServiceImpl;
@@ -23,6 +25,9 @@ public class OrderServiceImpl extends DefaultServiceImpl<Order,String> implement
 
     @Autowired
     private OrderRepository repository;
+
+    @Autowired
+    private OrdersMessagesSender ordersMessagesSender;
 
     @Override
     @PostConstruct
@@ -44,6 +49,8 @@ public class OrderServiceImpl extends DefaultServiceImpl<Order,String> implement
             .build();
 
         order = repository.save(order);
+
+        ordersMessagesSender.sendOrderConfirmed(OrderConfirmedMsg.builder().orderId(order.getId()).status(order.getStatus()).build());
             
         return order;
     }
