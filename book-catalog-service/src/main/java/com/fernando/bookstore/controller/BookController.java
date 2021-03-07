@@ -50,6 +50,11 @@ public class BookController {
 		return ResponseEntity.ok(bookService.listAll(pageable));
 	}
 	
+	@GetMapping(path = "withFilters")
+	public ResponseEntity<List<Book>> getBooksWithFilters(@RequestParam(required = false) String isbn,
+		@RequestParam(required = false) String title, @RequestParam(required = false) String author, Pageable pageable) {
+		return ResponseEntity.ok(bookService.listWithFilters(isbn, title, author, pageable));
+	}
 
     @PostMapping(path = "")
 	public ResponseEntity<Book> create(@RequestBody Book book) {

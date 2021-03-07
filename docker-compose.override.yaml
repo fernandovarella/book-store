@@ -3,3 +3,6 @@ version: "3"
 services:
   foo:
     entrypoint: ["echo", "Service foo disabled"]
+
+  book-catalog-service:
+    entrypoint: ["echo", "Service foo disabled"]

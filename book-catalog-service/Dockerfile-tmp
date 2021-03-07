@@ -1,0 +1,23 @@
+FROM maven:3.5-jdk-8 as BUILD
+
+RUN echo \
+    "<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0\' \
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
+    xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd'> \
+        <localRepository>C:/Users/Fernandos/.m2/repository</localRepository> \
+        <interactiveMode>true</interactiveMode> \
+        <usePluginRegistry>false</usePluginRegistry> \
+        <offline>false</offline> \
+    </settings>" \
+    > /usr/share/maven/conf/settings.xml;
+
+COPY . /usr/src/app
+RUN mvn --batch-mode -f /usr/src/app/pom.xml clean package
+
+FROM openjdk:8-jre
+EXPOSE 8080 5005
+COPY --from=BUILD /usr/src/app/target /opt/target
+WORKDIR /opt/target
+ENV _JAVA_OPTIONS '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
+
+CMD ["java", "-jar", "book-catalog-service-0.0.1-SNAPSHOT.jar"]

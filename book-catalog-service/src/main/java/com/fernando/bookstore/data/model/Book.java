@@ -32,27 +32,31 @@ public class Book extends DefaultEntity<String> {
 
     private String title;
 
+    private String author;
+
     @Id
     @Field("id")
     private String id; 
 
-    @Field("original_title")
-    private String originalTitle;
+    private Integer pages;
 
-    @Field("original_publication_year")
-    private Integer publicationYear;
+    // @Field("title")
+    // private String originalTitle;
 
-    @Field("average_rating")
-    private Double averageRating;
+    // @Field("year")
+    // private Integer publicationYear;
 
-    @Field("ratings_count")
-    private Integer ratingsCount;
+    // @Field("average_rating")
+    // private Double averageRating;
 
-    @Field("image_url")
-    private String imgUrl;
+    // @Field("ratings_count")
+    // private Integer ratingsCount;
 
-    @Field("small_image_url")
-    private String imgUrlSmall;
+    // @Field("image_url")
+    // private String imgUrl;
+
+    // @Field("small_image_url")
+    // private String imgUrlSmall;
 
     private List<String> authors;
 
